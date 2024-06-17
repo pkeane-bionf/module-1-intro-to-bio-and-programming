@@ -1,0 +1,80 @@
+---
+title: "R Notebook to create a venn diagram from gene lists"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+```{r}
+#clear R's brain, always a good first step in any notebook you write
+rm(list=ls())
+```
+
+#load the necessary libraries
+
+```{r}
+#a package for reading in data
+library(readr)
+#a package for plotting your data
+library(ggplot2)
+#library for making venn diagrams
+library(ggvenn)
+#specify this to enable plotting to work
+options(bitmapType='cairo')
+```
+
+#import the example gene list data
+```{r}
+gene.list<- read_csv("venn_gene_list.csv")
+```
+
+#perform some basic checks on the data to check it has read in correctly
+```{r}
+View(gene.list)
+```
+
+#make basic venn diagram with gene lists A and B
+```{r}
+venn_list <- list("Var A" = gene.list$A,
+                    "Var B" = gene.list$B)
+
+#draw the default venn
+AB_venn <- ggvenn(venn_list)
+AB_venn
+```
+
+#make basic venn diagram with gene lists A, B and C
+```{r}
+venn_list <- list("Var A" = gene.list$A,
+                    "Var B" = gene.list$B,
+                  "Var C" = gene.list$C)
+
+#draw the default venn
+ABC_venn <- ggvenn(venn_list)
+ABC_venn
+```
+
+#make basic venn diagram with gene lists A, B, C and D
+```{r}
+venn_list <- list("Var A" = gene.list$A,
+                    "Var B" = gene.list$B,
+                  "Var C" = gene.list$C,
+                  "Var D" = gene.list$D)
+
+#draw the default venn
+ABCD_venn <- ggvenn(venn_list)
+ABCD_venn
+```
+
+#Customise venn diagram with gene lists A, B and C
+```{r}
+venn_list <- list("Var A" = gene.list$A,
+                    "Var B" = gene.list$B,
+                  "Var C" = gene.list$C)
+
+#draw the default venn
+ABC_venn <- ggvenn(venn_list, show_percentage = FALSE, show_elements = FALSE, fill_alpha = 0.5, fill_color = c("pink", "purple", "yellow"))
+ABC_venn
+```
+
+This is the end of the notebook.
